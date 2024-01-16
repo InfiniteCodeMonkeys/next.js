@@ -521,6 +521,21 @@ async fn insert_next_server_special_aliases(
         external_if_node(project_path, "next/dist/compiled/@opentelemetry/api"),
     );
 
+    let image_config = next_config.image_config().await?;
+    if let Some(loader_file) = image_config.loader_file.as_deref() {
+        import_map.insert_exact_alias(
+            "next/dist/shared/lib/image-loader",
+            request_to_import_mapping(project_path, loader_file),
+        );
+
+        if runtime == NextRuntime::Edge {
+            import_map.insert_exact_alias(
+                "next/dist/esm/shared/lib/image-loader",
+                request_to_import_mapping(project_path, loader_file),
+            );
+        }
+    }
+
     match ty {
         ServerContextType::Pages { pages_dir } | ServerContextType::PagesApi { pages_dir } => {
             insert_alias_to_alternatives(
