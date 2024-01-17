@@ -37,6 +37,9 @@ The Edge Runtime is ideal if you need to deliver dynamic, personalized content a
 
 For example, code executed in the Edge Runtime [on Vercel cannot exceed between 1 MB and 4 MB](https://vercel.com/docs/concepts/limits/overview#edge-middleware-and-edge-functions-size), this limit includes imported packages, fonts and files, and will vary depending on your deployment infrastructure.
 
+> **Good to know**: Are you running into "Module not found: Can't resolve 'fs'" errors (or another Node.js module)? You may be trying to use a package that requires Node.js modules that are not available in the Edge runtime. Consider using another runtime.
+
+
 ### Node.js Runtime
 
 Using the Node.js runtime gives you access to all Node.js APIs, and all npm packages that rely on them. However, it's not as fast to start up as routes using the Edge runtime.
